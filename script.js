@@ -95,6 +95,7 @@ function playerMove(move){
 
     if(result === 'You Win'){
         section.classList.add('green');
+        section.classList.remove('red');
     }
     else if (result === 'Tie'){
         section.classList.remove('green');
@@ -102,6 +103,7 @@ function playerMove(move){
     }
     else if(result === 'You Lose'){
         section.classList.add('red');
+        section.classList.remove('green');
     }
 
     // Display To Front End/User
