@@ -3,11 +3,12 @@ const rockBtn = document.querySelector('.js-rock');
 const scissorsBtn = document.querySelector('.js-scissors');
 
 
-let scores = {
+let scores = JSON.parse(localStorage.getItem('scores')) ||
+{
     wins: 0,
     ties: 0,
     losses: 0
-}
+};
 
 
 let finalCompMove;
@@ -83,35 +84,40 @@ function playerMove(move){
     }
 
     console.log(`${result}. You picked ${move}. The computer picked ${finalCompMove}
-Wins: ${scores.wins} Ties: ${scores.ties}  Losses: ${scores.losses}`);
+    Wins: ${scores.wins} Ties: ${scores.ties}  Losses: ${scores.losses}`);
 
-// Change color of section depending with result
+    // Save to LocalStorage
+    localStorage.setItem('scores', JSON.stringify(scores));
 
-const section = document.querySelector('.js-section');
+    // Change color of section depending with result
 
-if(result === 'You Win'){
-    section.classList.add('green');
+    const section = document.querySelector('.js-section');
+
+    if(result === 'You Win'){
+        section.classList.add('green');
+    }
+    else if (result === 'Tie'){
+        section.classList.remove('green');
+        section.classList.remove('red');
+    }
+    else if(result === 'You Lose'){
+        section.classList.add('red');
+    }
+
+    // Display To Front End/User
+    const scoreBlock = document.querySelector('.js-score');
+    const resultBlock = document.querySelector('.js-result');
+    const messageBlock = document.querySelector('.js-message');
+
+
+    resultBlock.innerHTML = `${result}`;
+    messageBlock.innerHTML = `You picked ${move}. The computer picked ${finalCompMove}.`;
+    scoreBlock.innerHTML = `Wins: ${scores.wins} Ties: ${scores.ties}  Losses: ${scores.losses}`
+
+
 }
-else if (result === 'Tie'){
-    section.classList.remove('green');
-    section.classList.remove('red');
-}
-else if(result === 'You Lose'){
-    section.classList.add('red');
-}
 
-const scoreBlock = document.querySelector('.js-score');
-const resultBlock = document.querySelector('.js-result');
-const messageBlock = document.querySelector('.js-message');
-
-
-resultBlock.innerHTML = `${result}`;
-messageBlock.innerHTML = `You picked ${move}. The computer picked ${finalCompMove}.`;
-scoreBlock.innerHTML = `Wins: ${scores.wins} Ties: ${scores.ties}  Losses: ${scores.losses}`
-
-
-}
-
+// Player Moves
 paperBtn.addEventListener('click', ()=>{
     playerMove('paper')
 })
@@ -122,6 +128,13 @@ rockBtn.addEventListener('click', ()=>{
 
 scissorsBtn.addEventListener('click', ()=>{
     playerMove('scissors')
+})
+
+// Reset Play
+const resetButton = document.querySelector('.js-reset-button');
+
+resetButton.addEventListener('click', ()=>{
+    localStorage.removeItem('scores');
 })
 
 
