@@ -100,6 +100,16 @@ else if(result === 'You Lose'){
     section.classList.add('red');
 }
 
+const scoreBlock = document.querySelector('.js-score');
+const resultBlock = document.querySelector('.js-result');
+const messageBlock = document.querySelector('.js-message');
+
+
+resultBlock.innerHTML = `${result}`;
+messageBlock.innerHTML = `You picked ${move}. The computer picked ${finalCompMove}.`;
+scoreBlock.innerHTML = `Wins: ${scores.wins} Ties: ${scores.ties}  Losses: ${scores.losses}`
+
+
 }
 
 paperBtn.addEventListener('click', ()=>{
