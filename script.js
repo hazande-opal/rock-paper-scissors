@@ -1,3 +1,4 @@
+function renderGamePage(){
 const paperBtn = document.querySelector('.js-paper');
 const rockBtn = document.querySelector('.js-rock');
 const scissorsBtn = document.querySelector('.js-scissors');
@@ -137,7 +138,10 @@ const resetButton = document.querySelector('.js-reset-button');
 
 resetButton.addEventListener('click', ()=>{
     localStorage.removeItem('scores');
+    renderGamePage();
 })
+}
+renderGamePage();
 
 
 
